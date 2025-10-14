@@ -9,7 +9,7 @@ public class NinjaController {
 
     @GetMapping("/boasvindas")
     public String boasVindas(){
-        return "Olé, este é o primeiro retorno da rota";
+        return "Olá, este é o primeiro retorno da rota";
     };
 
 }
