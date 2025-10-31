@@ -37,7 +37,7 @@ public class NinjaController {
         return "Altera um ninja";
     }
 
-    @DeleteMapping("/apagar-id")
+    @DeleteMapping("/apagar-")
     public String apagaNinja(){
         return "Apaga um ninja";
     }
