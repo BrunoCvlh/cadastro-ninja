@@ -1,17 +1,27 @@
 package dev.java10x.cadastroNinja.Ninjas;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.oauth2.client.ConditionalOnOAuth2ClientRegistrationProperties;
 import org.springframework.web.bind.annotation.*;
 
-@org.springframework.stereotype.Controller
-@RestController("ninjas")
+import java.util.List;
+
+@RestController
+@RequestMapping("/ninjas")
 public class NinjaController {
+
+
+    private NinjaService ninjaService;
+
+    public NinjaController(NinjaService ninjaService) {
+        this.ninjaService = ninjaService;
+    }
 
     @GetMapping("/boasvindas")
     public String boasVindas(){
         return "Olá, este é o primeiro retorno da rota";
     };
 
-    //Criar um ninja
     @PostMapping("/criar")
     public String criaNinja(){
         return "O ninja foi criado";
@@ -23,8 +33,8 @@ public class NinjaController {
     }
 
     @GetMapping("/listar")
-    public String listaNinjas(){
-        return "Todos os ninjas cadastrados";
+    public List<NinjaModel> listaNinjas(){
+        return ninjaService.listarNinjas();
     }
 
     @PutMapping("/alterar")

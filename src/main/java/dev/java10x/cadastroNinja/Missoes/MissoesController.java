@@ -3,7 +3,7 @@ package dev.java10x.cadastroNinja.Missoes;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("missoes")
+@RequestMapping("/missoes")
 public class MissoesController {
 
     @PostMapping("/criar")
