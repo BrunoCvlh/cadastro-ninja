@@ -10,12 +10,8 @@ import java.util.List;
 @RequestMapping("/ninjas")
 public class NinjaController {
 
-
+    @Autowired
     private NinjaService ninjaService;
-
-    public NinjaController(NinjaService ninjaService) {
-        this.ninjaService = ninjaService;
-    }
 
     @GetMapping("/boasvindas")
     public String boasVindas(){
