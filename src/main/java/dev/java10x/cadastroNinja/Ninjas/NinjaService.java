@@ -11,6 +11,8 @@ public class NinjaService {
 
     @Autowired
     private NinjaRepository ninjaRepository;
+    @Autowired
+    private NinjaMapper ninjaMapper;
 
     public List<NinjaModel> listarNinjas(){
         return ninjaRepository.findAll();
@@ -21,8 +23,11 @@ public class NinjaService {
         return ninjaPorId.orElse(null);
     }
 
-    public NinjaModel criarNinja(NinjaModel ninja){
-        return ninjaRepository.save(ninja);
+    public NinjaDTO criarNinja(NinjaDTO ninjaDTO){
+        NinjaModel ninjaModel = ninjaMapper.map(ninjaDTO);
+        NinjaModel savedNinjaModel = ninjaRepository.save(ninjaModel);
+
+        return ninjaMapper.map(savedNinjaModel);
     }
 
     public void deletarNinjaPorId(Long id){
