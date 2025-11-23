@@ -1,11 +1,16 @@
 package dev.java10x.cadastroNinja.Ninjas;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.DefaultApplicationArguments;
 import org.springframework.boot.autoconfigure.security.oauth2.client.ConditionalOnOAuth2ClientRegistrationProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.management.Descriptor;
 import java.util.List;
 
 @RestController
@@ -16,11 +21,17 @@ public class NinjaController {
     private NinjaService ninjaService;
 
     @GetMapping("/boasvindas")
+    @Operation(summary = "Mensagem de boas vindas", description = "Essa rota entrega uma mensagem de boas vindas para o usuário")
     public String boasVindas(){
         return "Olá, este é o primeiro retorno da rota";
     };
 
     @PostMapping("/criar")
+    @Operation(summary = "Cria novo objeto no banco (ninja)", description = "Cria objeto ninja no banco de dados")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Ninja criado no banco"),
+            @ApiResponse(responseCode = "400", description = "Erro na criação do ninja")
+    })
     public ResponseEntity<String> criarNinja(@RequestBody NinjaDTO ninja){
         NinjaDTO novoNinja = ninjaService.criarNinja(ninja);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -39,6 +50,7 @@ public class NinjaController {
     }
 
     @GetMapping("/listar")
+    @Operation(summary = "Lista todos os objetos (ninjas)", description = "Entrega a listagem dos objetos incluídos no banco de dados")
     public ResponseEntity<List<NinjaDTO>> listaNinjas(){
         List<NinjaDTO> ninjas =  ninjaService.listarNinjas();
         return ResponseEntity.ok(ninjas);
